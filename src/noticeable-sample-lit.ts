@@ -293,6 +293,10 @@ export class NoticeableSampleLit extends LitElement {
       text-align: center;
       width: 100%;
     }
+    
+    #noticeable-icon {
+      width: 39px;
+    }
   `;
 
   protected render(): TemplateResult {
