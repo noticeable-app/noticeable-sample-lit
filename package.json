@@ -1,0 +1,69 @@
+{
+  "devDependencies": {
+    "@open-wc/building-rollup": "^1.10.0",
+    "@open-wc/eslint-config": "^4.3.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "@web/dev-server": "^0.1.25",
+    "concurrently": "^6.3.0",
+    "deepmerge": "^4.2.2",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "lint-staged": "^11.2.3",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.58.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.4"
+  },
+  "scripts": {
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js",
+    "start:build": "npm run build && web-dev-server --root-dir dist --app-index index.html --open --compatibility none",
+    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
+  },
+  "name": "noticeable-sample-lit",
+  "version": "0.0.0",
+  "description": "Webcomponent noticeable-sample-lit following open-wc recommendations",
+  "author": "noticeable-sample-lit",
+  "license": "MIT",
+  "dependencies": {
+    "@vaadin/router": "^1.7.4",
+    "lit": "^2.0.2"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "@open-wc/eslint-config",
+      "eslint-config-prettier"
+    ],
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error"
+      ],
+      "import/no-unresolved": "off",
+      "import/extensions": [
+        "error",
+        "always",
+        {
+          "ignorePackages": true
+        }
+      ]
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
