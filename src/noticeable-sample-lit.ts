@@ -1,10 +1,12 @@
 import {Router} from '@vaadin/router';
+import {config} from './config';
 import {css, html, LitElement, TemplateResult,} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
-import './noticeable-page1.js';
-import './noticeable-page2.js';
-import './noticeable-page3.js';
+import './noticeable-page1';
+import './noticeable-page2';
+import './noticeable-page3';
+
 
 
 @customElement('noticeable-sample-lit')
@@ -21,6 +23,13 @@ export class NoticeableSampleLit extends LitElement {
       { path: '/page2', component: 'noticeable-page2' },
       { path: '/page3', component: 'noticeable-page3' },
     ]);
+
+    noticeable.render('widget', config.noticeable.iconWidgetId, {root: this.shadowRoot, selector: '#noticeable-icon'});
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    noticeable.destroy('widget', config.noticeable.iconWidgetId);
   }
 
   public static styles = css`
@@ -341,6 +350,9 @@ export class NoticeableSampleLit extends LitElement {
           <li><a href="/page1">Page 1</a></li>
           <li><a href="/page2">Page 2</a></li>
           <li><a href="/page3">Page 3</a></li>
+          <li>
+            <div id="noticeable-icon"></div>
+          </li>
         </ul>
       </div>
 
