@@ -8,9 +8,9 @@ import './noticeable-page2';
 import './noticeable-page3';
 
 
-
 @customElement('noticeable-sample-lit')
 export class NoticeableSampleLit extends LitElement {
+
   @property({ type: String })
   private appTitle = 'My app';
 
