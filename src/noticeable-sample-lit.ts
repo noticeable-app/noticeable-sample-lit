@@ -2,6 +2,8 @@ import { Router } from '@lit-labs/router'
 import { css, html, LitElement, type TemplateResult } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
+import { config } from './config'
+
 import './noticeable-page1'
 import './noticeable-page2'
 import './noticeable-page3'
@@ -17,6 +19,18 @@ export class NoticeableSampleLit extends LitElement {
     { path: '/page2', render: () => html`<noticeable-page2></noticeable-page2>` },
     { path: '/page3', render: () => html`<noticeable-page3></noticeable-page3>` },
   ])
+
+  protected firstUpdated(): void {
+    window.noticeable.render('widget', config.noticeable.iconWidgetId, {
+      root: this.shadowRoot!,
+      selector: '#noticeable-icon',
+    })
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback()
+    window.noticeable.destroy('widget', config.noticeable.iconWidgetId)
+  }
 
   private navigate(event: Event, path: string): void {
     event.preventDefault()
@@ -135,6 +149,9 @@ export class NoticeableSampleLit extends LitElement {
           <li><a href="/page1" @click=${(e: Event) => this.navigate(e, '/page1')}>Page 1</a></li>
           <li><a href="/page2" @click=${(e: Event) => this.navigate(e, '/page2')}>Page 2</a></li>
           <li><a href="/page3" @click=${(e: Event) => this.navigate(e, '/page3')}>Page 3</a></li>
+          <li>
+            <div id="noticeable-icon"></div>
+          </li>
         </ul>
       </div>
 
